@@ -119,20 +119,27 @@ class DatabaseLab:
         with psycopg2.connect(host=db_url,
                               port=db_port,
                               database=db_name,
-                              password=password,
-                              user=username) as connection:
+                              user=username,
+                              password=password) as connection:
 
             connection.autocommit = True
             with connection.cursor() as cursor:
-                for schema in ['public', 'inbox']:
-                    query = f"SELECT TABLENAME FROM pg_tables WHERE SCHEMANAME='{schema}'"
-                    cursor.execute(query)
-                    results = cursor.fetchall()
+                for schema in ["public", "inbox"]:
+                    for _entity_type in ["table", "sequence", "view", ["matview", "materialized view"]]:
+                        entity_type = _entity_type if type(_entity_type) == str else _entity_type[0]
+                        query = f"SELECT {entity_type}NAME FROM pg_{entity_type}s WHERE SCHEMANAME='{schema}'"
 
-                    for row in results:
-                        table_name = row[0]
-                        query = f"SET search_path = {schema}; ALTER TABLE {table_name} OWNER TO {username}"
                         cursor.execute(query)
+                        results = cursor.fetchall()
+
+                        for row in results:
+                            entity_name = row[0]
+
+                            entity_type = _entity_type if type(_entity_type) == str else _entity_type[1]
+                            logging.debug(f"updating ownership of {entity_type} {entity_name} to {username}")
+                            query = f"SET search_path = {schema}; ALTER {entity_type} {entity_name} OWNER TO {username}"
+
+                            cursor.execute(query)
 
     def analyze(self, db_url, db_name, db_port, username, password):
 
