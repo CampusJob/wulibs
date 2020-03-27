@@ -109,3 +109,15 @@ class Kubernetes:
                 logging.error(f"unable to create endpoints [{domain.service_name}] "
                               f"in namespace [{domain.namespace}]: {e}")
                 raise e
+
+    def delete_service(self, namespace, service_name):
+        service = self.get_service(namespace, service_name)
+        if service:
+            logging.info(f"deleting service [{service_name}]")
+            try:
+                self.k8s.delete_namespaced_service(name=service_name, namespace=namespace)
+            except Exception as e:
+                logging.error(f"unable to delete service [{service_name}] in namespace [{namespace}]: {e}")
+                raise e
+        else:
+            logging.info(f"service [{service_name}] not found in namespace [{namespace}]")
