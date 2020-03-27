@@ -14,7 +14,7 @@ from psycopg2 import sql
 
 class DatabaseLab:
 
-    def __init__(self, url, token, snapshot_name, timeout=120):
+    def __init__(self, url, token, snapshot_name="dblab_pool@initdb", timeout=120):
         self.dblab_url = url
         self.headers = {"Verification-Token": token}
         self.snapshot_name = snapshot_name
