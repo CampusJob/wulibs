@@ -26,8 +26,8 @@ class DnsResolver:
 
                 return addresses
 
-            except Exception:
-                pass
+            except Exception as e:
+                logging.warning(f"failed to resolve {domain}: {e}")
 
             timeout += 5
             time.sleep(5)
