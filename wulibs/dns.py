@@ -8,6 +8,7 @@ class DnsResolver:
 
     def __init__(self, nameserver="100.64.0.10", timeout=120):
         self.nameserver = nameserver
+        self.timeout = timeout
 
         self.resolver = dns.resolver.Resolver(configure=False)
         self.resolver.nameservers = [self.nameserver]
