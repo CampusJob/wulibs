@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="wulibs",
-    version="0.0.3",
+    version="0.0.4",
 
     description="WayUp Python DevOps Libraries",
 
@@ -21,7 +21,7 @@ setuptools.setup(
         "dnspython3",
         "kubernetes",
         "munch",
-        "psycopg2",
+        "psycopg2-binary",
         "requests"
     ],
 )
