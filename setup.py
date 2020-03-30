@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="wulibs",
-    version="0.0.1",
+    version="0.0.2",
 
     description="WayUp Python DevOps Libraries",
 
