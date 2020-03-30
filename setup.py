@@ -17,5 +17,11 @@ setuptools.setup(
 
     packages=setuptools.find_packages(exclude=["docs", "tests*"]),
 
-    install_requires=["munch", "kubernetes", "psycopg2", "requests"],
+    install_requires=[
+        "dnspython3",
+        "kubernetes",
+        "munch",
+        "psycopg2",
+        "requests"
+    ],
 )
