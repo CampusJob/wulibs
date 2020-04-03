@@ -58,7 +58,7 @@ def create_dblab_pr_db(pr_number, analyze=False):
         dns_resolver.resolve(database_host)
 
         logging.info(f"trying to reach database {database_id} at {service.service_name}:{service.port}")
-        dblab.database_is_reachable(database_host, service.port)
+        dblab.wait_for_database_to_be_reachable(database_host, service.port)
 
         database_url = f"{database_id}.{KUBERNETES_NAMESPACE}.svc.cluster.local"
         logging.info(f"updating ownership of entities to user {DATABASE_USERNAME}")

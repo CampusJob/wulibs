@@ -99,16 +99,17 @@ class DatabaseLab:
         raise Exception(f"database [{database_id}] not ready: {database.status.code}")
 
     def database_is_reachable(self, host, port=5432):
+        with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
+            sock.settimeout(1)
+            return sock.connect_ex((host, int(port))) == 0
+
+    def wait_for_database_to_be_reachable(self, host, port=5432):
         timeout = 0
         while timeout < self.timeout:
-
-            with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
-                sock.settimeout(1)
-
-                if sock.connect_ex((host, int(port))) == 0:
-                    return True
-                else:
-                    logging.warning(f"{host}:{port} not yet reachable")
+            if self.database_is_reachable(host, port):
+                return True
+            else:
+                logging.warning(f"{host}:{port} not yet reachable")
 
             timeout += 5
             time.sleep(5)
