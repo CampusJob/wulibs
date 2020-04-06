@@ -21,7 +21,7 @@ setuptools.setup(
         "dnspython3",
         "kubernetes",
         "munch",
-        "psycopg2-binary",
+        "psycopg2",
         "requests"
     ],
 )
