@@ -60,6 +60,7 @@ class DatabaseLab:
 
         response = requests.post(f"{self.dblab_url}/clone", data=json.dumps(payload), headers=self.headers)
         if response.status_code != 201:
+            logging.error(response.text)
             raise Exception(f"failed to create database [{database_id}]")
 
     def delete_database(self, database_id):
