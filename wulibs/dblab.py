@@ -102,7 +102,11 @@ class DatabaseLab:
     def database_is_reachable(self, host, port=5432):
         with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
             sock.settimeout(1)
-            return sock.connect_ex((host, int(port))) == 0
+            try:
+                return sock.connect_ex((host, int(port))) == 0
+
+            except Exception:
+                return False
 
     def wait_for_database_to_be_reachable(self, host, port=5432):
         timeout = 0
