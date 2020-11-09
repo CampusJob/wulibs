@@ -15,6 +15,7 @@ DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD", "dblab")
 DATABASE_NAME = os.getenv("DATABASE_NAME", "tcjpr")
 
 KUBERNETES_NAMESPACE = os.getenv("KUBERNETES_NAMESPACE", "default")
+
 DBLAB_ENDPOINT = os.getenv("DBLAB_ENDPOINT", "10.0.61.195")
 DBLAB_URL = os.getenv("DBLAB_URL", "http://dblab.default.svc.cluster.local")
 DBLAB_TOKEN = os.getenv("DBLAB_TOKEN", "secret_token")
