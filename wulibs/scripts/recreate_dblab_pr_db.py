@@ -3,8 +3,8 @@ import argparse
 import logging
 import sys
 
-import delete_dblab_pr_db
-import create_dblab_pr_db
+from .create_dblab_pr_db import create_dblab_pr_db
+from .delete_dblab_pr_db import delete_dblab_pr_db
 
 
 def recreate_dblab_pr_db(pr_number):
@@ -12,8 +12,8 @@ def recreate_dblab_pr_db(pr_number):
 
     logging.info(f"recreating PR database [{database_id}]")
 
-    delete_dblab_pr_db.delete_dblab_pr_db(pr_number)
-    create_dblab_pr_db.create_dblab_pr_db(pr_number)
+    delete_dblab_pr_db(pr_number)
+    create_dblab_pr_db(pr_number)
 
 
 if __name__ == "__main__":
@@ -25,4 +25,4 @@ if __name__ == "__main__":
     parser.add_argument("pr_number", type=int, help="The PR number")
     args = parser.parse_args()
 
-    delete_dblab_pr_db(args.pr_number)
+    recreate_dblab_pr_db(args.pr_number)
